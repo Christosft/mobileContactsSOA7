@@ -7,7 +7,7 @@ public class ValidationUtil {
 
 
     /**
-     *
+     * No instances of this class should be available.
      */
     private ValidationUtil() {
 
