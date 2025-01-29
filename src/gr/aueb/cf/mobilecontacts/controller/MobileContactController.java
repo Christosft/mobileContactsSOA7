@@ -71,7 +71,7 @@ public class MobileContactController {
             service.deleteContactById(id);
             return "OK\n Contact is deleted";
         } catch (ContactNotFoundException e) {
-            return "Error\n Error at deletion. Contact not found";
+            return "Error\n Error at deletion. Contact not found\n";
         }
     }
 
@@ -112,7 +112,7 @@ public class MobileContactController {
             readOnlyDTO = Mapper.mapMobileContactToDTO(mobileContact);
             return "OK\n" + Serializer.serializedDTO(readOnlyDTO);
         } catch (ContactNotFoundException e) {
-            return "Error.\n Η επαφή δεν βρέθηκε \n";
+            return "Error.\n Contact not found \n";
         }
     }
 
@@ -124,9 +124,9 @@ public class MobileContactController {
             readOnlyDTO = Mapper.mapMobileContactToDTO(mobileContact);
             service.deleteContactByPhoneNumber(phoneNumber);
 
-            return "OK\n Η επαφή διαγράφηκε" + Serializer.serializedDTO(readOnlyDTO);
+            return "OK\n Contact is deleted" + Serializer.serializedDTO(readOnlyDTO);
         } catch (ContactNotFoundException e) {
-            return "Error\n Λάθος κατά τη διαγραφή. Η επαφή δεν βρέθηκε";
+            return "Error\n Error at deletion. Contact not found\n";
         }
     }
 }
