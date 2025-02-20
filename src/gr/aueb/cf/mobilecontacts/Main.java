@@ -76,6 +76,7 @@ public class Main {
                 MobileContactUpdateDTO mobileContactUpdateDTO = new MobileContactUpdateDTO(oldId, firstname, lastname, phoneNumber);
                 response = controller.updateContact(mobileContactUpdateDTO);
                 System.out.println(response);
+                break;
 
                 /*System.out.println("Please enter the contact ID to update:");
                 long contactId = Long.parseLong(getToken());
@@ -99,14 +100,14 @@ public class Main {
                 break;*/
 
             case "3":
-                System.out.println("Εισάγετε Κωδικό Επαφής");
-                Long id = Long.parseLong(getToken());
+                System.out.println("Enter contact id");
+                long id = Long.parseLong(getToken());
                 response = controller.deleteContactById(id);
                 if (response.startsWith("OK")) {
-                    System.out.println("Επιτυχής Διαγραφή");
+                    System.out.println("Delete succeeded");
                     System.out.println(response.substring(3));
                 } else {
-                    System.out.println("Ανεπιτυχής Διαγραφή");
+                    System.out.println("Delete is not succeeded");
                     System.out.println(response.substring(6));
                 }
                 break;
@@ -124,14 +125,14 @@ public class Main {
                 break;*/
 
             case "4":
-                System.out.println("Εισάγετε Κωδικό Επαφής");
-                id =  Long.parseLong(getToken());
+                System.out.println("Enter contact id");
+                id = Long.parseLong(getToken());
                 response = controller.getContactById(id);
                 if (response.startsWith("OK")) {
-                    System.out.println("Επιτυχής Αναζήτηση");
+                    System.out.println("Search succeeded");
                     System.out.println(response.substring(3));
                 } else {
-                    System.out.println("Ανεπιτυχής Αναζήτηση");
+                    System.out.println("Search is not succeeded");
                     System.out.println(response.substring(6));
                 }
                 /*System.out.println("Please select contact by phone Number");
@@ -151,7 +152,7 @@ public class Main {
 
             case "5":
                 List<String > mobileContacts = controller.getAllContacts();
-                if (mobileContacts.isEmpty()) System.out.println("Κενή λίστα επαφών");
+                if (mobileContacts.isEmpty()) System.out.println("Empty contacts list");
                 mobileContacts.forEach(System.out::println);
                 break;
                 /*System.out.println("Phone book:");

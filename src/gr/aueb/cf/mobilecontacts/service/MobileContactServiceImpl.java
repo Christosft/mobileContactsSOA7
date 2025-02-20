@@ -44,27 +44,26 @@ public class MobileContactServiceImpl implements IMobileContactService {
         MobileContact mobileContact;
         MobileContact newContact;
         try {
-            if (dao.userIdExists(dto.getId())) {
-                throw new ContactNotFoundException("Contact with id: " + dto.getId() + " not found");
+            if (!dao.userIdExists(dto.getId())) {
+                throw new ContactNotFoundException("Contact with id: " + dto.getId() + " not found for update.");
             }
 
             mobileContact = dao.getById(dto.getId());
-            boolean isPhoneNumberOurOwn = mobileContact.getPhoneNumber().equals(dto.getPhoneNumber());
+            boolean isPhoneNUmberOurOwn = mobileContact.getPhoneNumber().equals(dto.getPhoneNumber());
             boolean isPhoneNumberExists = dao.phoneNumberExists(dto.getPhoneNumber());
 
-            if (isPhoneNumberExists && isPhoneNumberOurOwn) {
-                throw new PhoneNumberAlreadyExistsException("Contact with phone number:" + dto.getPhoneNumber() + " already exists and cannot be updated");
+            if (isPhoneNumberExists && !isPhoneNUmberOurOwn) {
+                throw new PhoneNumberAlreadyExistsException("Contact with phone number: " + dto.getPhoneNumber()
+                        + " already exists and can not be updated.");
             }
 
             newContact = Mapper.mapUpdateDTOToContact(dto);
             System.err.printf("MobileContactServiceImpl Logger: %s was updated with new info: %s\n", mobileContact, newContact);
             return dao.update(dto.getId(), newContact);
-
         } catch (ContactNotFoundException | PhoneNumberAlreadyExistsException e) {
-            System.err.printf("MobileContactServiceImpl Logger: %s\n",e.getMessage());
+            System.err.printf("MobileContactServiceImpl Logger: %s\n", e.getMessage());
             throw e;
         }
-
     }
 
     @Override
